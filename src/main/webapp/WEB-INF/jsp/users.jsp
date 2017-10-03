@@ -3,12 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<jsp:include page="heager.jsp"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <jsp:include page="heager.jsp"/>
 <body>
 
 <section>
-    <h1>Tweets</h1>
+    <h1>Users</h1>
+    <hr>
+    <a href="users/create">Create User</a>
+    <hr>
+
     <table>
         <thead>
         <tr>

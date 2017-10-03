@@ -1,13 +1,13 @@
 package ua.rd.web;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
-import ua.rd.domain.Tweet;
-import ua.rd.services.TweetService;
+        import org.springframework.web.servlet.ModelAndView;
+        import org.springframework.web.servlet.mvc.Controller;
+        import ua.rd.domain.Tweet;
+        import ua.rd.services.TweetService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
+        import java.io.PrintWriter;
 
 public class SpringMVCHelloController implements Controller {
 
@@ -28,7 +28,7 @@ public class SpringMVCHelloController implements Controller {
             writer.print(Thread.currentThread());
         }
 
-        for (Tweet tweet : tweetService.allTweets()) {
+        for (Tweet tweet : tweetService.getAllTweets()) {
 
         }
         return null;

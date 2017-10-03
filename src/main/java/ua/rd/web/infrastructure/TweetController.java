@@ -19,7 +19,7 @@ public class TweetController implements MyController {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try(PrintWriter writer = response.getWriter()) {
-          for(Tweet tweet : tweetService.allTweets()) {
+          for(Tweet tweet : tweetService.getAllTweets()) {
               writer.print(tweet + "<br/>");
           }
         }

@@ -18,8 +18,8 @@ public class TweetBFPP implements BeanFactoryPostProcessor {
         bd.setScope("singleton");
         MutablePropertyValues propertyValues = bd.getPropertyValues();
         PropertyValue user = propertyValues.getPropertyValue("user");
-        Object usv = user.getValue();
-        usv = new User(user.getValue().toString());
+       /* Object usv = user.getValue();
+        usv = new User(user.getValue().toString());*/
 
     }
 }

@@ -1,4 +1,4 @@
-package ua.rd;
+package ua.rd.runners;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -46,8 +46,8 @@ public class AppConfigRunner {
     @Bean()
     @Lazy
     public User user(Tweet tweet) {
-        User user = new User("Andrii");
-        user.setTweet(tweet());
+        User user = new User(0L, "Adam");
+        user.addTweet(tweet());
         return user;
     }
 }

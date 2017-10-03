@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @ComponentScan(
-        basePackages = "ua.rd.web",
+        basePackages = "ua.rd",
         excludeFilters = @Filter(Configuration.class))
 @EnableWebMvc
 public class WebConfig {

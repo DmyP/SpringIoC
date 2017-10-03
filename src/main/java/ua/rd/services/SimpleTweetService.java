@@ -1,100 +1,174 @@
 package ua.rd.services;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Lookup;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ua.rd.domain.Tweet;
-import ua.rd.ioc.Benchmark;
-import ua.rd.ioc.Context;
+import ua.rd.domain.User;
 import ua.rd.repository.TweetRepository;
+import ua.rd.repository.UserRepository;
 
-import java.util.function.Supplier;
-
-class PrototypeTweetServiceProxy implements TweetService,
-        InitializingBean,
-        DisposableBean,
-        ApplicationContextAware {
-
-    private Context context;
-    private TweetService tweetService;
-    private ApplicationContext applicationContext;
-
-    public PrototypeTweetServiceProxy(TweetService tweetService, Context context) {
-        this.context = context;
-    }
-
-    @Override
-    public Iterable<Tweet> allTweets() {
-        return tweetService.allTweets();
-    }
-
-    @Override
-    public TweetRepository getRepository() {
-        return tweetService.getRepository();
-    }
-
-    @Override
-    public Tweet newTweet() {
-        return (Tweet) applicationContext.getBean("tweet");
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("prop set");
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
-
-    @Override
-    public void destroy() throws Exception {
-
-    }
-}
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Optional;
 
 @Service("tweetService")
 public class SimpleTweetService implements TweetService {
 
+    @Autowired
     private TweetRepository tweetRepository;
-    private Tweet tweet;
 
-    @Required
     @Autowired
-    public void setTweet(Tweet tweet) {
-        this.tweet = tweet;
+    private UserRepository userRepository;
+
+    public SimpleTweetService() {
     }
 
-    @Autowired
-    public SimpleTweetService(TweetRepository tweetRepository) {
-        System.out.println("With param");
-        System.out.println(tweetRepository);
+    public SimpleTweetService(TweetRepository tweetRepository, UserRepository userRepository) {
         this.tweetRepository = tweetRepository;
+        this.userRepository = userRepository;
     }
 
-    @Override
-    public Iterable<Tweet> allTweets() {
-        System.out.println(tweetRepository);
-        return tweetRepository.allTweets();
-    }
-
-    @Override
-    public TweetRepository getRepository() {
+    public TweetRepository getTweetRepository() {
         return tweetRepository;
     }
 
-    @Override
-    @Lookup
-    @Benchmark
-    public Tweet newTweet() {
-        return null;
+    public void setTweetRepository(TweetRepository tweetRepository) {
+        this.tweetRepository = tweetRepository;
     }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public Collection<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
+
+    @Override
+    public Optional<User> getUserById(Long id) {
+        return userRepository.getUserById(id);
+    }
+
+    @Override
+    public Optional<User> getUserByName(String name) {
+        return userRepository.getUserByName(name);
+    }
+
+    @Override
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.update(user);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
+    public User createUser(String name) {
+        User user = userRepository.createUser(name);
+        return user;
+    }
+
+    @Override
+    public Collection<Tweet> getAllTweets() {
+        return tweetRepository.getAllTweets();
+    }
+
+    @Override
+    public Collection<Tweet> getAllTweetsByUser(User user) {
+        return tweetRepository.getAllTweetsByUser(user);
+    }
+
+    @Override
+    public Optional<Tweet> getTweetById(Long id) {
+        return tweetRepository.getTweetById(id);
+    }
+
+    @Override
+    public Collection<Tweet> getTweetFiltered(LocalDateTime dateBegin, LocalDateTime dateEnd) {
+        return tweetRepository.getTweetFiltered(dateBegin, dateEnd);
+    }
+
+    @Override
+    public Collection<Tweet> getTweetFilteredByUser(User user, LocalDateTime dateBegin, LocalDateTime dateEnd) {
+        return tweetRepository.getTweetFilteredByUser(user, dateBegin, dateEnd);
+    }
+
+    @Override
+    public void saveTweet(User user, Tweet tweet) {
+        tweetRepository.save(user, tweet);
+        user.addTweet(tweet);
+    }
+
+    @Override
+    public void updateTweet(User user, Tweet tweet) {
+        tweetRepository.update(user, tweet);
+    }
+
+    @Override
+    public void deleteTweet(User user, Tweet tweet) {
+        tweetRepository.delete(user, tweet);
+        user.deleteTweet(tweet);
+    }
+
+    @Override
+    public Tweet replyTweet(User user, Tweet tweet, String txt) {
+        return tweetRepository.reply(user, tweet, txt);
+    }
+
+    @Override
+    public long getLikesNumber(Tweet tweet) {
+        return tweetRepository.getTweetById(tweet.getId()).get().getLikes();
+    }
+
+    @Override
+    public void addLike(User user, Tweet tweet) {
+        user.likes(tweet);
+        tweetRepository.getTweetById(tweet.getId()).get().addLike();
+    }
+
+    @Override
+    public void removeLike(Tweet tweet) {
+        tweetRepository.getTweetById(tweet.getId()).get().removeLike();
+    }
+
+    @Override
+    public void addRetweet(User user, Tweet tweet) {
+        tweetRepository.addRetweet(user, tweet);
+        user.addRetweet(tweet);
+    }
+
+    @Override
+    public long getRetweetsNumber(Tweet tweet) {
+        return tweetRepository.getTweetById(tweet.getId()).get().getRetweets();
+    }
+
+    @Override
+    public void userTimeLine(User user) {
+        System.out.println(user.getName() + " tweets - ");
+        user.getTweets().forEach(System.out::println);
+
+        System.out.println(user.getName() + " retweets - ");
+        user.getRetweets().forEach(System.out::println);
+
+        System.out.println(user.getName() + " likes  - ");
+        user.getLikes().forEach(System.out::println);
+    }
+
+    @Override
+    public Tweet newTweet(User user, String txt) {
+        return  tweetRepository.newTweet(user, txt);
+    }
+
 }

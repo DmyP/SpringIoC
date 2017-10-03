@@ -3,14 +3,12 @@ package ua.rd.web.infrastructure;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import ua.rd.RepositoryConfig;
-import ua.rd.ServiceConfig;
-import ua.rd.repository.TweetRepository;
-import ua.rd.services.SimpleTweetService;
+import ua.rd.JavaBasedRepoConfig;
+import ua.rd.JavaBasedServiceConfig;
 import ua.rd.services.TweetService;
 
 @Configuration
-//@Import({RepositoryConfig.class, ServiceConfig.class})
+@Import({JavaBasedServiceConfig.class, JavaBasedRepoConfig.class})
 public class WebInfConfig {
 
     @Bean

@@ -1,4 +1,4 @@
-package ua.rd;
+package ua.rd.runners;
 
 import ua.rd.domain.Tweet;
 import ua.rd.ioc.ApplicationContext;
@@ -44,12 +44,9 @@ public class IoCRunner {
         TweetService tweetService = (TweetService) context.getBean("tweetService");
 
         System.out.println(tweetService.getClass());
-        System.out.println(tweetRepository.allTweets());
-        System.out.println(tweetService.allTweets());
+        System.out.println(tweetRepository.getAllTweets());
+        System.out.println(tweetService.getAllTweets());
 
-        System.out.println(
-            tweetService.newTweet() == tweetService.newTweet()
-        );
 
     }
 

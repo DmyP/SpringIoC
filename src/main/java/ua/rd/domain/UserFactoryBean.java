@@ -7,7 +7,7 @@ import ua.rd.domain.User;
 public class UserFactoryBean implements FactoryBean<User> {
     @Override
     public User getObject() throws Exception {
-        return new User((Tweet) null);
+        return new User();
     }
 
     @Override

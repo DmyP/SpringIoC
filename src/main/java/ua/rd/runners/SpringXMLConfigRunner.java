@@ -1,4 +1,4 @@
-package ua.rd;
+package ua.rd.runners;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,12 +29,8 @@ public class SpringXMLConfigRunner {
 
 
         TweetService tweetService = (TweetService) serviceContext.getBean("tweetService");
-        System.out.println(tweetService.allTweets());
+        System.out.println(tweetService.getAllUsers());
         System.out.println(tweetService.getClass());
-
-        System.out.println(
-                tweetService.newTweet() == tweetService.newTweet()
-        );
 
         System.out.println(serviceContext.getBean(User.class));
         System.out.println(serviceContext.getBean(Tweet.class));
