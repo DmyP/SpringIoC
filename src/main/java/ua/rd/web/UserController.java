@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ua.rd.domain.Tweet;
 import ua.rd.domain.User;
 import ua.rd.services.TweetService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 @RequestMapping(value = "/users")
@@ -40,6 +43,14 @@ public class UserController {
     private Long getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Long.valueOf(paramId);
+    }
+
+    @ModelAttribute
+    public User produceUser() {
+        User user = new User();
+        user.setId(ThreadLocalRandom.current().nextLong());
+        System.out.println("produceUser");
+        return user;
     }
 
 

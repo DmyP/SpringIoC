@@ -7,6 +7,7 @@
         <param-name>contextClass</param-name>
         <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
     </context-param>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>ua.rd.RepositoryConfig, ua.rd.ServiceConfig</param-value>
@@ -19,14 +20,14 @@
     <servlet>
         <servlet-name>WebDispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
+        <!--<init-param>
             <param-name>contextClass</param-name>
             <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
-        </init-param>
+        </init-param>-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <!--<param-value>WEB-INF/webContext.xml</param-value>-->
-            <param-value>ua.rd.WebConfig</param-value>
+            <param-value>WEB-INF/webContext.xml</param-value>
+           <!-- <param-value>ua.rd.WebConfig</param-value>-->
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
