@@ -50,12 +50,12 @@ public class SimpleTweetService implements TweetService {
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
+    public User getUserById(Long id) {
         return userRepository.getUserById(id);
     }
 
     @Override
-    public Optional<User> getUserByName(String name) {
+    public User getUserByName(String name) {
         return userRepository.getUserByName(name);
     }
 
@@ -71,6 +71,12 @@ public class SimpleTweetService implements TweetService {
 
     @Override
     public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        User user = userRepository.getUserById(id);
         userRepository.delete(user);
     }
 

@@ -11,9 +11,9 @@ public interface UserRepository {
 
     Collection<User> getAllUsers();
 
-        Optional<User> getUserById(Long id);
+        User getUserById(Long id);
 
-        Optional<User> getUserByName(String name);
+        User getUserByName(String name);
 
         void save(User user);
 

@@ -10,15 +10,17 @@ import java.util.Optional;
 public interface TweetService {
     Collection<User> getAllUsers();
 
-    Optional<User> getUserById(Long id);
+    User getUserById(Long id);
 
-    Optional<User> getUserByName(String name);
+    User getUserByName(String name);
 
     void saveUser(User user);
 
     void updateUser(User user);
 
     void deleteUser(User user);
+
+    void deleteUser(Long id);
 
     User createUser(String name);
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ua.rd.domain.User;
 import ua.rd.services.TweetService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,15 +20,20 @@ public class UserController {
 
     @GetMapping("/delete")
     public String delete(HttpServletRequest request) {
-        tweetService.getUserById(getId(request));
+        tweetService.deleteUser(getId(request));
         return "redirect:/users";
     }
 
+    @GetMapping("/create")
+    public String create(HttpServletRequest request, Model model) {
+        model.addAttribute("user", new User());
+        return "userEdit";
+    }
 
     @GetMapping("/update")
     public String update(HttpServletRequest request, Model model) {
         model.addAttribute("user", tweetService.getUserById(getId(request)));
-        return "user";
+        return "userEdit";
     }
 
 

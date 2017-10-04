@@ -38,15 +38,15 @@ public class InMemUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return Optional.ofNullable(users.get(id));
+    public User getUserById(Long id) {
+        return users.get(id);
     }
 
     @Override
-    public Optional<User> getUserByName(String name) {
+    public User getUserByName(String name) {
         return users.values().stream()
                 .filter(user -> user.getName().equals(name))
-                .findFirst();
+                .findFirst().get();
     }
 
     @Override

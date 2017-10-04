@@ -88,6 +88,9 @@ public class User {
         this.likes.add(tweet);
     }
 
+    public boolean isNew(){
+        return this.id == null;
+    }
 
     @Override
     public boolean equals(Object o) {
