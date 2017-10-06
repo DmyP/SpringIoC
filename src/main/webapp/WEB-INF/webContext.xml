@@ -29,4 +29,13 @@
                  view-class="org.springframework.web.servlet.view.JstlView"/>
     </mvc:view-resolvers>
 
+    <bean name="ExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <map>
+                <entry key="IllegalArgumentException" value="errors"/>
+            </map>
+        </property>
+        <property name="defaultErrorView" value="errors"/>
+        <property name="exceptionAttribute" value="ex"/>
+    </bean>
 </beans>

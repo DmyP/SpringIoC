@@ -38,7 +38,6 @@
         <tr>
             <td>${h.index + 1}</td>
             <td>${tweet.txt}</td>
-            <td><a href="<c:url value="editTweet?id=${tweet.tweetId}"></c:url>"><input type="submit" value="Edit"></a></td>
         </tr>
     </c:forEach>
 </table>

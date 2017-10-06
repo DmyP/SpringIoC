@@ -28,6 +28,10 @@ public class User {
         this.retweets = retweets;
     }
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
@@ -92,16 +96,6 @@ public class User {
         return this.id == null;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (!id.equals(user.id)) return false;
-        return name.equals(user.name);
-    }
 
     @Override
     public int hashCode() {
